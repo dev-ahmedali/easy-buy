@@ -1,8 +1,10 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
+import { Store } from '../utils/store';
 
 export default function Layout({ title, children }) {
+  const { state } = useContext(Store);
   return (
     <>
       <Head>
@@ -18,7 +20,17 @@ export default function Layout({ title, children }) {
             </Link>
             <div>
               <Link href="/cart">
-                <a className="p-2">Cart</a>
+                <a className="p-2">
+                  Cart{' '}
+                  {state.cart.cartItems.length > 0 && (
+                    <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                      {state.cart.cartItems.reduce(
+                        (prev, curr) => prev + curr.quantity,
+                        0
+                      )}
+                    </span>
+                  )}
+                </a>
               </Link>
               <Link href="/login">
                 <a className="p-2">Login</a>
@@ -26,8 +38,10 @@ export default function Layout({ title, children }) {
             </div>
           </nav>
         </header>
-        <main className='container m-auto mt-4 px-4'>{children}</main>
-        <footer className='flex h-10 justify-center items-center shadow-inner'>Copyright easy buy</footer>
+        <main className="container m-auto mt-4 px-4">{children}</main>
+        <footer className="flex h-10 justify-center items-center shadow-inner">
+          Copyright easy buy
+        </footer>
       </div>
     </>
   );
