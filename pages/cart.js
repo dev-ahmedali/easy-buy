@@ -61,7 +61,7 @@ function CartScreen() {
                     <td className="p-5 text-right">
                       <select
                         value={item.quantity}
-                        onClick={(e) => updateCartHandler(item, e.target.value)}
+                        onChange={(e) => updateCartHandler(item, e.target.value)}
                       >
                         {[...Array(item.countInStock).keys()].map((x) => (
                           <option key={x + 1} value={x + 1}>
